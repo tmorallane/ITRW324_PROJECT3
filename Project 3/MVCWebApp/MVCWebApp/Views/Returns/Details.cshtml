@@ -1,0 +1,42 @@
+﻿@model MVCWebApp.Models.ReturnsModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ReturnsModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Returned)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Returned)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Order_Id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Order_Id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Region)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Region)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
