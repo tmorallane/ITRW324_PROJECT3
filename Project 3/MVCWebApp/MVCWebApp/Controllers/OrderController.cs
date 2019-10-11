@@ -27,11 +27,11 @@ namespace MVCWebApp.Controllers
         }
 
         // GET: Order
-        public ActionResult Index(int? pageNumber)
+        public ActionResult Index()
         {
-            List<OrderModel> order = orderCollection.AsQueryable<OrderModel>().ToList();
+            List<OrderModel> orders = orderCollection.AsQueryable<OrderModel>().ToList();
 
-            return View(order.ToPagedList(pageNumber ?? 1, 20));
+            return View(orders);
         }
 
         // GET: Order/Details/5

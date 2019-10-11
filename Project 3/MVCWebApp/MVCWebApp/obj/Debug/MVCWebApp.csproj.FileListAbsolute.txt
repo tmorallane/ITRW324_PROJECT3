@@ -214,3 +214,7 @@ C:\Users\Nwuuser\Desktop\Project 3\MVCWebApp\MVCWebApp\obj\Debug\MVCWebApp.cspro
 C:\Users\Nwuuser\Desktop\Project 3\MVCWebApp\MVCWebApp\obj\Debug\MVCWebApp.csproj.CopyComplete
 C:\Users\Nwuuser\Desktop\Project 3\MVCWebApp\MVCWebApp\obj\Debug\MVCWebApp.dll
 C:\Users\Nwuuser\Desktop\Project 3\MVCWebApp\MVCWebApp\obj\Debug\MVCWebApp.pdb
+C:\Users\Nwuuser\Desktop\Project 3\MVCWebApp\MVCWebApp\bin\PagedList.dll
+C:\Users\Nwuuser\Desktop\Project 3\MVCWebApp\MVCWebApp\bin\PagedList.Mvc.dll
+C:\Users\Nwuuser\Desktop\Project 3\MVCWebApp\MVCWebApp\bin\PagedList.xml
+C:\Users\Nwuuser\Desktop\Project 3\MVCWebApp\MVCWebApp\bin\PagedList.Mvc.xml
