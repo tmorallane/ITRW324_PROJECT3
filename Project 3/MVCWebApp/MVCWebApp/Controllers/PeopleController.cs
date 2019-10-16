@@ -9,6 +9,7 @@ using System.Configuration;
 using MVCWebApp.App_Start;
 using MongoDB.Driver;
 using MVCWebApp.Models;
+using MVCWebApp.ViewModels;
 
 namespace MVCWebApp.Controllers
 {
@@ -16,6 +17,8 @@ namespace MVCWebApp.Controllers
     {
         private MongoDBContext dbcontext;
         private IMongoCollection<PeopleModel> peopleCollection;
+
+        peoplesViewModel peopleView = new peoplesViewModel();
 
         public PeopleController()
         {
@@ -27,7 +30,11 @@ namespace MVCWebApp.Controllers
         {
             List<PeopleModel> peoples = peopleCollection.AsQueryable<PeopleModel>().ToList();
 
-            return View(peoples);
+            int total_Africa_count = (from x in peoples.Where(x => x.Region.Contains("Africa")) select x.Person).Count();
+
+            peopleView.counter_Africa = total_Africa_count;
+
+            return View(peopleView);
         }
 
         // GET: People/Details/5
