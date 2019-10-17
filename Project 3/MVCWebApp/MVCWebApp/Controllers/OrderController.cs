@@ -11,6 +11,7 @@ using MongoDB.Driver;
 using MVCWebApp.Models;
 using PagedList.Mvc;
 using PagedList;
+using MVCWebApp.ViewModels;
 
 namespace MVCWebApp.Controllers
 {
@@ -19,6 +20,7 @@ namespace MVCWebApp.Controllers
 
         private MongoDBContext dbcontext;
         private IMongoCollection<OrderModel> orderCollection;
+        ordersViewModel orderView = new ordersViewModel();
 
         public OrderController()
         {
@@ -26,12 +28,27 @@ namespace MVCWebApp.Controllers
             orderCollection = dbcontext.database.GetCollection<OrderModel>("orders");
         }
 
-        // GET: Order
+        [Authorize]
         public ActionResult Index()
         {
             List<OrderModel> orders = orderCollection.AsQueryable<OrderModel>().ToList();
 
-            return View(orders);
+            int total_order = (from x in orders select x.OrderId).Count();
+            //double total_sale = (from x in orders select Convert.ToDouble(x.Sales.Replace("$", string.Empty).Replace(".", ","))).Sum();
+            int market_africa = (from x in orders.Where(x => x.Market.Contains("Africa")) select x.OrderId).Count();
+            int market_asia = (from x in orders.Where(x => x.Market.Contains("Asia")) select x.OrderId).Count();
+            int market_America = (from x in orders.Where(x => x.Market.Contains("US")) select x.OrderId).Count();
+            int market_europe = (from x in orders.Where(x => x.Market.Contains("Europe")) select x.OrderId).Count();
+
+            orderView.Africa_market = market_africa;
+            orderView.America_market = market_America;
+            orderView.Asia_market = market_asia;
+            orderView.Europe_market = market_europe;
+
+            orderView.total_orders = total_order;
+            //orderView.total_sales = total_sale;
+
+            return View(orderView);
         }
 
         // GET: Order/Details/5

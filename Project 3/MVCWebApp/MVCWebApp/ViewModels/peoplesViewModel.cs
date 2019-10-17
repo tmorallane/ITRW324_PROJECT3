@@ -11,5 +11,6 @@ namespace MVCWebApp.ViewModels
         public int counter_Europe { get; set; }
         public int counter_Asia { get; set; }
         public int counter_USA { get; set; }
+        public int counter_Canada { get; set; }
     }
 }

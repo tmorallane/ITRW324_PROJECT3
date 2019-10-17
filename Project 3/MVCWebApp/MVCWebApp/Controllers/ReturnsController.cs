@@ -9,6 +9,7 @@ using System.Configuration;
 using MVCWebApp.App_Start;
 using MongoDB.Driver;
 using MVCWebApp.Models;
+using MVCWebApp.ViewModels;
 
 namespace MVCWebApp.Controllers
 {
@@ -17,6 +18,7 @@ namespace MVCWebApp.Controllers
 
         private MongoDBContext dbcontext;
         private IMongoCollection<ReturnsModel> returnsCollection;
+        returnsViewModel returnsView = new returnsViewModel();
 
         public ReturnsController()
         {
@@ -24,12 +26,26 @@ namespace MVCWebApp.Controllers
             returnsCollection = dbcontext.database.GetCollection<ReturnsModel>("returns");
         }
 
-        // GET: Returns
+        [Authorize]
         public ActionResult Index()
         {
             List<ReturnsModel> returned = returnsCollection.AsQueryable<ReturnsModel>().ToList();
 
-            return View(returned);
+            int total_return = (from x in returned.Where(x => x.Returned.Contains("Yes")) select x.OrderID).Count();
+
+            int africa_region = (from x in returned.Where(x => x.Region.Contains("Africa")) select x.OrderID).Count();
+            int asia_region = (from x in returned.Where(x => x.Region.Contains("Asia")) select x.OrderID).Count();
+            int europe_region = (from x in returned.Where(x => x.Region.Contains("Europe")) select x.OrderID).Count();
+            int america_region = (from x in returned.Where(x => x.Region.Contains("US")) select x.OrderID).Count();
+
+            returnsView.total_returns = total_return;
+
+            returnsView.Africa_region = africa_region;
+            returnsView.America_region = america_region;
+            returnsView.Asia_region = asia_region;
+            returnsView.Europe_region = europe_region;
+
+            return View(returnsView);
         }
 
         // GET: Returns/Details/5

@@ -17,7 +17,6 @@ namespace MVCWebApp.Controllers
     {
         private MongoDBContext dbcontext;
         private IMongoCollection<PeopleModel> peopleCollection;
-
         peoplesViewModel peopleView = new peoplesViewModel();
 
         public PeopleController()
@@ -25,14 +24,24 @@ namespace MVCWebApp.Controllers
             dbcontext = new MongoDBContext();
             peopleCollection = dbcontext.database.GetCollection<PeopleModel>("people");
         }
-        // GET: People
+        [Authorize]
         public ActionResult Index()
         {
-            List<PeopleModel> peoples = peopleCollection.AsQueryable<PeopleModel>().ToList();
+            List<PeopleModel> Mypeople = peopleCollection.AsQueryable<PeopleModel>().ToList();
 
-            int total_Africa_count = (from x in peoples.Where(x => x.Region.Contains("Africa")) select x.Person).Count();
+             int total_Africa_count = (from x in Mypeople.Where(x => x.Region.Contains("Africa")) select x.Person).Count();
+
+             int total_Europe_count = (from x in Mypeople.Where(x => x.Region.Contains("Europe")) select x.Person).Count();
+
+             int total_Asia_count = (from x in Mypeople.Where(x => x.Region.Contains("Asia")) select x.Person).Count();
+
+             int total_USA_count = (from x in Mypeople.Where(x => x.Region.Contains("US")) select x.Person).Count();
+
 
             peopleView.counter_Africa = total_Africa_count;
+            peopleView.counter_Asia = total_Asia_count;
+            peopleView.counter_Europe = total_Europe_count;
+            peopleView.counter_USA = total_USA_count;
 
             return View(peopleView);
         }
